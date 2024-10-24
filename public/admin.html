@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliações - HRAV</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body onload="validateSession(); getDadosSetores(); getDadosPerguntas(); loadDashboard(); getDadosDispositivos();">
+    <nav>
+        <div class = 'navBarContainer'>
+            <a href="#Dashboard"><div class = 'navIcon'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+            </div></a>
+
+            <a href="#setor"><div class = 'navIcon'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M420-280h120v-100h100v-120H540v-100H420v100H320v120h100v100ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z"/></svg>
+            </div></a>
+            
+            <a href="#SectionPerguntas"><div class = 'navIcon'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-360q17 0 29.5-12.5T602-402q0-17-12.5-29.5T560-444q-17 0-29.5 12.5T518-402q0 17 12.5 29.5T560-360Zm-30-128h60q0-29 6-42.5t28-35.5q30-30 40-48.5t10-43.5q0-45-31.5-73.5T560-760q-41 0-71.5 23T446-676l54 22q9-25 24.5-37.5T560-704q24 0 39 13.5t15 36.5q0 14-8 26.5T578-596q-33 29-40.5 45.5T530-488ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+            </div></a>
+
+            <a href="#DispArticle"><div class = 'navIcon'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M80-160v-120h80v-440q0-33 23.5-56.5T240-800h600v80H240v440h240v120H80Zm520 0q-17 0-28.5-11.5T560-200v-400q0-17 11.5-28.5T600-640h240q17 0 28.5 11.5T880-600v400q0 17-11.5 28.5T840-160H600Zm40-120h160v-280H640v280Zm0 0h160-160Z"/></svg>
+            </div></a>
+
+           <!-- <div class = 'navIcon'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-320h80v-166l64 63 57-57-161-160-160 160 57 56 63-63v167ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-480H160v480Zm0 0v-480 480Z"/></svg>
+            </div> -->                   
+        </div>
+    </nav>
+    <section>
+        <div class = 'LogoContainer'>
+            <img src="img/hrav.png" alt="Logo do Hospital Regional do Alto Vale do Itajaí">
+            <div class = 'title'>
+                <h1>Hospital Regional</h1>
+                <h2>do Alto Vale do Itajaí</h2>
+            </div>
+        </div>
+
+        <div class = 'separator'></div>
+
+        <article id = "Dashboard">
+            
+            <div class = 'titleContainer'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                <h2>Dashboard</h2>
+            </div>
+
+            <article class = 'sectorScoreContainer' id = 'scores'></article>
+            
+            <div class = 'DualContainer'>
+                <article class = 'window GraphContainer'>
+                    <h2>Pesquisas Realizadas</h2>
+                    <div class = 'canvasContainer'>
+                        <canvas id = 'grafRespostas'></canvas>
+                    </div>
+                    <div id = 'GraphControls'>
+                        <h4 class = 'option' onclick="drawGraph(4, this)">Ano</h4>
+                        <h4 class = 'option' onclick="drawGraph(3, this)">Semestre</h4>
+                        <h4 class = 'option' onclick="drawGraph(2, this)">Mês</h4>
+                        <h4 class = 'option selected' onclick="drawGraph(1, this)">Semana</h4>
+                    </div>
+                </article>
+
+                <article id = 'LastFeedContainer' class = 'window'>
+                    <h2 class = 'FeedContainerTitle'>Ultimos Feedbacks</h2>
+
+                </article>
+            </div>
+ 
+
+            <div class = 'CenterContainer'>
+                <article class = 'window DashContainer'>
+                    <h2 id = 'AvNum' class ='displayValue'>1.968</h2>
+                    <h2>Avaliações Respondidas</h2>
+                </article>
+                
+                <article class = 'window DashContainer'>
+                    <h2 id = 'avHj' class ='displayValue'>196</h2>
+                    <h2>Respondidas Hoje</h2>
+                </article>
+                
+                <article class = 'window DashContainer'>
+                    <h2 id = 'mdGeral' class ='displayValue'>9.5</h2>
+                    <h2>Média Geral</h2>
+                </article>
+            </div>
+        </article>
+        
+        <div class = 'separator'></div>
+
+        <article id = 'setor'>
+            <div class = 'titleContainer'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M420-280h120v-100h100v-120H540v-100H420v100H320v120h100v100ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z"/></svg>
+                <h2>Administração de Setores</h2>
+            </div>
+
+            <div class = 'DualContainer'>
+
+                <article id = 'SetorInfo' class = 'window toolbarContainer'>
+                    <header>
+                        <h4>Ações</h4>
+                    </header>
+                    <div class = 'toolbar'>
+                        <div class = 'IconButton' onclick="addNewSetor()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                            <h3>Adcicionar</h3>
+                        </div>
+                        <div class = 'IconButton deactivated_iconButton' onclick="EditSetor(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                            <h3>Editar</h3>
+                        </div>
+                        <div value = '0' class = 'IconButton deactivated_iconButton' onclick="getSetorDesativar(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m791-55-91-91q-49 32-104.5 49T480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-60 17-115.5T146-700l-91-91 57-57 736 736-57 57ZM480-160q43 0 83.5-11t78.5-33L204-642q-22 38-33 78.5T160-480q0 133 93.5 226.5T480-160Zm334-100-58-58q22-38 33-78.5t11-83.5q0-133-93.5-226.5T480-800q-43 0-83.5 11T318-756l-58-58q49-32 104.5-49T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 60-17 115.5T814-260ZM537-537ZM423-423Z"/></svg>
+                            <h3 class = 'EnableText'>Desativar</h3>
+                        </div>
+
+                        <div class = 'IconButton deactivated_iconButton' onclick="confirmaRemoverSetor(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                            <h3>Remover</h3>
+                        </div>
+
+                       </div>
+                </article>
+
+                <article id = 'SetorControl' class = 'window DataContainer'>
+                    <div class = 'TableContainer'>
+                        <table id ='setorTable'>
+
+                        </table>
+                    </div>
+                    <footer>
+                        <div class = 'searchbox'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+                            <input type="text" onkeyup="showTableSetoresFiltrados(this.value)">
+                        </div>    
+                    </footer>
+                </article>
+            </div>
+        </article>
+
+        
+        <div class = 'separator'></div>
+
+        <article id = 'SectionPerguntas'>
+            <div class = 'titleContainer'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-360q17 0 29.5-12.5T602-402q0-17-12.5-29.5T560-444q-17 0-29.5 12.5T518-402q0 17 12.5 29.5T560-360Zm-30-128h60q0-29 6-42.5t28-35.5q30-30 40-48.5t10-43.5q0-45-31.5-73.5T560-760q-41 0-71.5 23T446-676l54 22q9-25 24.5-37.5T560-704q24 0 39 13.5t15 36.5q0 14-8 26.5T578-596q-33 29-40.5 45.5T530-488ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+                <h2>Cadastro de Perguntas</h2>
+            </div>
+
+            <div class = 'DualContainer'>
+                <article id = 'PerguntaInfo' class = 'window toolbarContainer'>
+                    <header>
+                        <h4>Ações</h4>
+                    </header>
+                    <div class = 'toolbar'>
+                        <div class = 'IconButton' onclick="addNewPergunta()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                            <h3>Adcicionar</h3>
+                        </div>
+                        <div class = 'IconButton deactivated_iconButton' onclick="">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                            <h3>Editar</h3>
+                        </div>
+                        <div value = '0' class = 'IconButton deactivated_iconButton' onclick="getPerguntaDesativar(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m791-55-91-91q-49 32-104.5 49T480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-60 17-115.5T146-700l-91-91 57-57 736 736-57 57ZM480-160q43 0 83.5-11t78.5-33L204-642q-22 38-33 78.5T160-480q0 133 93.5 226.5T480-160Zm334-100-58-58q22-38 33-78.5t11-83.5q0-133-93.5-226.5T480-800q-43 0-83.5 11T318-756l-58-58q49-32 104.5-49T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 60-17 115.5T814-260ZM537-537ZM423-423Z"/></svg>
+                            <h3 class = 'EnableText'>Desativar</h3>
+                        </div>
+
+                        <div class = 'IconButton deactivated_iconButton' onclick="confirmaRemoverPergunta(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                            <h3>Remover</h3>
+                        </div>
+
+                       </div>
+                </article>
+
+                <article id = 'Perguntas' class = 'window DataContainer'>
+                    <div class = 'TableContainer'>
+                        <table id ='PerguntasTable'>
+
+                        </table>
+                    </div>
+                    <footer>
+                        <div class = 'searchbox'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+                            <input type="text" onkeyup="showTablePerguntasFiltrados(this.value)">
+                        </div>   
+                        <div class = 'searchbox'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M420-280h120v-100h100v-120H540v-100H420v100H320v120h100v100ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z"/></svg>
+                            <select name="setorselect" id="SetorSelect" onchange="filtraSetorPergunta(this)">
+                                <option value="0">Todos os Setores</option>
+                            </select>
+                        </div>     
+                    </footer>
+                </article>
+            </div>
+        </article>
+
+            
+        <div class = 'separator'></div>
+            
+        
+        <article id = 'DispArticle'>
+            <div class = 'titleContainer'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M80-160v-120h80v-440q0-33 23.5-56.5T240-800h600v80H240v440h240v120H80Zm520 0q-17 0-28.5-11.5T560-200v-400q0-17 11.5-28.5T600-640h240q17 0 28.5 11.5T880-600v400q0 17-11.5 28.5T840-160H600Zm40-120h160v-280H640v280Zm0 0h160-160Z"/></svg>
+                <h2>Cadastro de Dispositivos</h2>
+            </div>
+
+            <div class = 'DualContainer'>
+                <article id = 'DispositivoInfo' class = 'window toolbarContainer'>
+                    <header>
+                        <h4>Ações</h4>
+                    </header>
+                    <div class = 'toolbar'>
+                        <div class = 'IconButton' onclick="addNewDispositivo()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                            <h3>Adcicionar</h3>
+                        </div>
+                        <div class = 'IconButton deactivated_iconButton' onclick="editDispositivo(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                            <h3>Editar</h3>
+                        </div>
+                        <div value = '0' class = 'IconButton deactivated_iconButton' onclick="getDispositivoDesativar(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m791-55-91-91q-49 32-104.5 49T480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-60 17-115.5T146-700l-91-91 57-57 736 736-57 57ZM480-160q43 0 83.5-11t78.5-33L204-642q-22 38-33 78.5T160-480q0 133 93.5 226.5T480-160Zm334-100-58-58q22-38 33-78.5t11-83.5q0-133-93.5-226.5T480-800q-43 0-83.5 11T318-756l-58-58q49-32 104.5-49T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 60-17 115.5T814-260ZM537-537ZM423-423Z"/></svg>
+                            <h3 class = 'EnableText'>Desativar</h3>
+                        </div>
+
+                        <div class = 'IconButton deactivated_iconButton' onclick="confirmaRemoverDispositivo(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                            <h3>Remover</h3>
+                        </div>
+
+                        </div>
+                </article>
+                <article id = 'Dispositivos' class = 'window DataContainer'>
+                    <div class = 'TableContainer'>
+                        <table id ='DispositivosTable'>
+
+                        </table>
+                    </div>
+                    <footer> 
+                        <div class = 'searchbox'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M420-280h120v-100h100v-120H540v-100H420v100H320v120h100v100ZM160-120v-480l320-240 320 240v480H160Zm80-80h480v-360L480-740 240-560v360Zm240-270Z"/></svg>
+                            <select name="setorselect" id="SetorDispSelect" onchange="filtraSetorDispositivo(this)">
+                                <option value="0">Todos os Setores</option>
+                            </select>
+                        </div>                             
+                    </footer>
+                </article>
+            </div>
+        </article>
+    </section>
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/setor.js"></script>
+    <script src="js/dispositivo.js"></script>
+    <script src="js/perguntas.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

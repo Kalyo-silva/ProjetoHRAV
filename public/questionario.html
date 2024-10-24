@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de satisfação</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="createCounter(); loadFormData()"></body>
+    <div id = 'mainContainer'>
+        <nav id = 'FormNav'>
+                <img src="img/hrav.png" alt="Logo do Hospital Regional do Alto Vale do Itajaí">
+            <h1>HRAV - Formulário de satisfação</h1>
+            <svg onclick = 'quit()' xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+            </svg>    
+        </nav>
+
+        <div id = 'banner'>
+            <h1 id ='BannerMsg'>Ei, tem um minutinho?</h1>    
+            <h2 id = 'BannerContent'>Gostaria de responder uma pesquisa de satisfação?</h2>
+
+            <button id = 'BannerBtn' class="centerButton" onclick='loadQuestions()'>Vamos Lá!</button>
+        </div>
+
+        <div id = 'content'>
+            <h2 id = 'question'></h2>
+
+            <div id = 'wrapper'>
+                <h3>Avaliação</h3>
+                <div id = 'counterContainer' ></div>
+
+                <div id = 'FeedbackContainer'>
+                    <div id ='feedback'>
+                        <h3>Gostaria de deixar um feedback adicional?</h3>
+                        <textarea name="" id="complemento"></textarea>
+                    </div>
+                    <section id="controls">
+                        <button id = 'ant' class = 'buttons disabled' onclick="questaoAnterior(this)">Anterior</button>
+                        <button id = 'prox' class = 'buttons' onclick="proximaQuestao(this)">Próximo</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+     <footer>
+        <h4>Sua  avaliação  espontânea  é anônima, nenhuma informação pessoal é solicitada ou armazenada.</h4>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

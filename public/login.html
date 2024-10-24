@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <article class = 'window'>
+        <div class = 'formContainer'>
+            <div class = 'FormDualContainer'>
+                <div class = 'labeledInputHalfWidth'>
+                    <label for="User">Usuário</label>
+                    <input id = 'usucodigo' type="number" min = 0 onchange="getUser(this.value)">
+                </div>
+
+                <h3 id = 'usunome'>...</h3>
+            </div>
+            <label for="Senha">Senha</label>
+            <input type="password" id = 'ususenha'>
+
+            <button onclick="validadeLogin()">Entrar</button>
+        </div>
+    </article>
+    
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

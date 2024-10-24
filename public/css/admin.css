@@ -1,0 +1,697 @@
+nav{
+    width: fit-content;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 2px solid var(--dtcolor);
+}
+
+section{
+    width: inherit;
+    height: 100%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+body{
+    flex-direction: row;
+}
+
+svg{
+    margin: 1rem 0;
+    width: 3rem;
+    height: 3rem;
+}
+
+.window{
+    border-radius: 15px;
+    background: white;
+    border: 2px solid var(--dtcolor);
+    box-shadow: 0 0 10px gray;
+    overflow: hidden;
+}
+
+.DualContainer{
+    display: flex;
+    margin: 3rem;
+    justify-content: space-between;
+}
+
+.CenterContainer{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem;
+}
+
+.navIcon{
+    display: flex;
+    margin: 0 1rem;
+    width: -webkit-fill-available;
+    align-items: center;
+    justify-content: center;
+}
+
+.navIcon h3{
+    width: fit-content;
+    color: white;
+    border-bottom: 3px solid white;
+    display: none;
+}
+
+.navIcon svg{
+    fill: white;
+    transition: all 0.2s;
+}
+
+.navIcon svg:hover{
+    fill: var(--dtcolor);
+}
+
+.DashContainer{
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.DashContainer h2{
+    margin: 1rem 2rem;
+    width: min-content;
+    margin-left: 0;
+}
+
+.displayValue{
+    color: var(--bgcolor);
+    font-size: 3rem;
+    margin: 1rem !important;
+}
+
+.sectorScoreContainer{
+    width: -webkit-fill-available;
+    display: grid;
+    margin: 0 3rem;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.sectorIcon{
+    background: white;
+    border: 2px solid var(--dtcolor);
+    box-shadow: 0 0 10px gray;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem;
+    overflow: hidden;
+    width: -webkit-fill-available;
+}
+
+.sectorIcon h3{
+    font-size: 1rem;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background: var(--bgcolor);
+    color: white;
+    border-bottom: solid 2px var(--dtcolor);
+    text-wrap: nowrap;
+
+}
+
+.sectorIcon h2{
+        font-size: 3rem;
+        font-weight: 500;
+        color: var(--bgcolor);
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        height: 100%;
+        align-content: center;
+}
+
+#LastFeedContainer{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.FeedContainerTitle{
+    margin: 0;
+    padding: 1rem;
+    background: var(--bgcolor);
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid var(--dtcolor);
+    color: white;
+    box-shadow: 0 0 10px gray;
+    z-index: 1;
+}
+#LastFeedContainer h3{
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.5rem 1rem;
+
+}
+
+
+.GraphContainer{
+    width: 60%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#GraphControls{
+    display: grid;
+    box-shadow: 0 0 10px gray;
+    background: var(--bgcolor);
+    grid-template-columns: auto auto auto auto;
+    text-align: center;
+    width: 100%;
+}
+
+.option{
+    font-size: 1rem;
+    color: white;
+    background: var(--bgcolor);
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid var(--dtcolor);
+    border-top: 2px solid var(--dtcolor);
+    border-bottom: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover{
+    color: var(--dtcolor);
+    background: white;
+}
+
+.selected{
+    color: var(--dtcolor);
+    background: white;
+}
+
+.canvasContainer{
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.feedback{
+    width: 100%;
+    background: white;
+    border: 1px solid gray;
+    border-top: 0;
+
+}
+
+.feedback h2{
+    color: var(--dtcolor);
+    background-color: white;
+    font-size: 1rem;
+    padding: 0 1rem;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.feedback h4{
+    text-align: right;
+    margin: 0 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+}
+
+.separator{
+    width: -webkit-fill-available;
+    height: 2px;
+    background: var(--dtcolor);
+    margin: 3rem;
+}
+
+.titleContainer{
+    width: fit-content;
+    margin: 3rem;
+    border: 2px solid var(--dtcolor);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.titleContainer h2{
+    font-size: 1rem;
+    color: var(--dtcolor);
+    font-weight: 500;
+    padding: 0;
+    padding-right: 1rem;
+    text-align: left;
+}
+
+.titleContainer svg{
+    fill: var(--dtcolor);
+    width: 2rem;
+    height: 2rem;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+    margin: 0;
+}
+
+
+#SetorControl h4{
+    color: white;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    background: var(--bgcolor);
+    border-bottom: 2px solid var(--dtcolor);
+    width: 100%;
+}
+
+input, select{
+    height: fit-content;
+    border: 1px solid var(--dtcolor);
+    border-radius: 5px;
+    padding: 0.2rem 0.5rem;
+    font-family: system-ui;
+    font-weight: 400;
+}
+
+.IconButton{
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    margin: 0.5rem;
+    border: 2px solid var(--dtcolor);
+    cursor: pointer;
+    transition: all 0.2s;
+    width: fit-content;
+    color: var(--dtcolor);
+    fill: var(--dtcolor);
+    width: -webkit-fill-available;
+}
+
+.IconButton:hover{
+    color: var(--bgcolor);
+    fill: var(--bgcolor);
+    border: 2px solid var(--bgcolor);
+}
+
+.IconButton h3{
+    margin: 0;
+    font-size: 1rem;
+    margin-left: 0.2rem;
+}
+
+.IconButton svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;    
+}
+
+.toolbarContainer{
+    width: 20%;
+}
+
+table tr:nth-child(odd){
+    background:gainsboro;
+}
+table tr:nth-child(even){
+     background: white;
+}
+
+td{
+    padding: 0.2rem 1rem;
+    font-family: system-ui;
+    font-weight: 400;
+    padding-left: 1rem;
+    cursor: pointer;
+}
+
+
+th{
+    padding: 0.25rem;
+    background: var(--bgcolor);
+    color: white;
+    font-family: system-ui;
+    font-weight: 400;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--dtcolor);
+}
+
+table{
+    width: 100%;
+    border-spacing: 0;
+}
+.tableContainer{
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+table td + td { 
+    border-left:1px solid darkgrey; 
+}
+table th + th { 
+    border-left:1px solid var(--dtcolor); 
+}
+
+header h4{
+    margin: 0;
+    font-size: 1.2rem;
+    padding: 0.25rem 1rem;
+    color: white;
+}
+
+tr:hover{
+    color: var(--dtcolor);
+}
+
+.trselected{
+    background-color: var(--bgcolor) !important;
+}
+
+
+footer{
+    width: 100%;
+    background: var(--bgcolor);
+    border-top: 2px solid var(--dtcolor);
+    display: flex;
+}
+
+.searchbox{
+    display: flex;
+    align-items: center;
+    margin: 0.4rem;
+}
+
+footer svg{
+    fill: var(--dtcolor);
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    margin-right: 0.5rem;
+}
+
+.toolbar{
+    display: grid;
+}
+
+.LogoContainer{
+    margin-top: 2rem;
+    display: flex;
+}
+
+.LogoContainer img{
+    width: 7rem;
+    height: 7rem;
+    border-radius: 15px;
+    margin: 0 3rem;
+    margin-right: 1rem;
+}
+
+.navBarContainer{
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+* {
+    transition: all 0.2s;
+}
+
+.title h1{
+    font-size: 3rem;
+    margin: 0;
+    color: darkred;
+}
+
+.title h2{
+    font-size: 2rem;
+    margin: 0;
+    color: gray;
+}
+
+.deactivated_iconButton{
+    color: lightgray;
+    fill: lightgray;
+    border: 2px solid lightgray;
+    cursor: no-drop;
+}
+
+.deactivated_iconButton:hover{
+    color: lightgray;
+    fill: lightgray;
+    border: 2px solid lightgray;
+}
+
+#modalContainer{
+    width: fit-content;
+}
+
+#ModalInput{
+    font-size: 2rem;
+    margin: 2rem;
+    margin-top: 0;
+}
+
+.CenterButton{
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 35%;
+}
+
+#modalText{
+    padding: 0;
+    height: fit-content !important;
+    margin-bottom: 1rem;
+    text-align: left;
+    width: 85%;
+}
+
+.DataContainer{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ContentContainer{
+    width: 100%;
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+}
+
+#selectContainer{
+    width: fit-content;
+    height: fit-content;
+    margin: 1rem;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--dtcolor);
+    width: 35%;
+}
+
+#TextBox{
+    width: 60%;
+}
+
+.TableContainer{
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .DualContainer {
+      max-height: 25rem;
+    }
+  }
+
+@media screen and (max-width: 1180px) {
+    .DualContainer {
+      max-height: 27rem;
+    }
+  }
+
+
+  @media screen and (max-width: 912px) {
+    nav{
+        height: fit-content;
+        width: 100%;
+    }
+
+    .DualContainer{
+        max-height: none;
+        flex-direction: column;
+    }
+
+    .toolbarContainer{
+        width: 100%;
+    }
+
+    .toolbar{
+        display: flex;
+    }
+
+    .DataContainer{
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+
+    .navBarContainer{
+        flex-direction: row;
+        height: fit-content;
+    }
+
+    body{
+        flex-direction: column-reverse;
+    }
+
+    .GraphContainer{
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    #LastFeedContainer{
+        width: 100%;
+    }
+  }
+
+  
+  @media screen and (max-width: 540px) {
+    .DualContainer{
+        margin: 2rem;
+    }
+
+    .LogoContainer{
+        justify-content: center;
+    }
+
+    .LogoContainer img{
+        margin: 0;
+        margin-right: 1rem;
+    }
+
+    .title h1{
+        font-size: 1.5rem;
+    }
+
+    .title h2{
+        font-size: 1rem;
+    }
+
+    .titleContainer{
+        margin: 2rem;
+    }
+
+    .separator{
+        margin: 1rem 2rem;
+    }
+
+    .toolbar{
+        display: flex;
+        justify-content: center;
+    }
+
+    .IconButton{
+        width: fit-content;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+    .IconButton h3{
+        display: none;
+    }
+
+    header{
+        display: none;
+    }
+
+    #LastFeedContainer{
+        max-height: 20rem;
+    }
+
+    .sectorScoreContainer{
+        grid-template-columns: 50% 50%;
+        margin: 0 2rem;
+    }
+
+    .CenterContainer{
+        flex-direction: column;
+        margin: 2rem;
+    }
+
+    .DashContainer{
+        width: 100%;
+    }
+
+    #modalContainer{
+        width: 90% !important;    
+    }
+
+    #modalText{
+        font-size: 1rem;
+    }
+
+    #modalTitle{
+        font-size: 1rem
+    }
+
+    #modalClose{
+        font-size: 1rem
+    }
+
+    #ModalInput{
+        font-size: 1rem
+    }
+
+    #ContentContainer{
+        flex-direction: column;
+    }
+
+    #selectContainer{
+        width: -webkit-fill-available;
+    }
+
+    #TextBox{
+        width: -webkit-fill-available;
+        margin: 1rem;
+    }
+
+    #TextBox h2{
+        margin-top: 0;
+    }   
+
+    svg{
+        width: 2rem;
+        height: 2rem;
+    }
+  }

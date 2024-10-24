@@ -1,0 +1,101 @@
+#selectorContainer{
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h2{
+    text-align: center;
+    font-size: 2rem;
+    color: var(--dtcolor);
+    margin: 0;
+}
+
+h3{
+    margin: 1rem 0;
+}
+
+.title h2{
+    text-align: left;
+}
+
+.DualContainer{
+    align-items: flex-end;
+}
+
+input{
+    font-size: 2rem;
+}
+
+.buttons{
+    padding: 1rem 5rem;
+    transition: all 0.2s;
+}
+
+.buttons:hover{
+    background-color: var(--ftcolor);
+    color: var(--dtcolor);
+    cursor: pointer;
+}
+.contentContainer{
+    width: -webkit-fill-available;
+    margin: 0 3rem;
+}
+
+.SetorButton{
+    border: 2px solid var(--dtcolor);
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    background: var(--bgcolor);
+    color: var(--ftcolor);
+    align-content: center;
+    margin: 0.5rem;
+    transition: all 0.2s;
+}
+
+.dispositivoButton{
+    color: var(--dtcolor);
+    background: var(--ftcolor);
+}
+
+.dispositivoButton:hover{
+    background-color: var(--ftcolor) !important;
+    color: var(--dtcolor)!important;
+    cursor: pointer;
+}
+
+.sectorScoreContainer{
+    margin: 0;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.dispositivoSelected{
+    background: var(--bgcolor);
+    color: var(--ftcolor);
+}
+
+.IconButton svg{
+    width: 2rem;
+    height: 2rem;
+}
+
+.IconButton h3{
+    font-size: 1rem;
+}
+
+
+.DualContainer{
+    margin-top: 0;
+}
+
+#DispoID{
+    color: var(--dtcolor);
+}
+
+#modalText{
+    padding: 1rem;
+    text-align: center;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRAV - Pesquisa de satisfação</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/selector.css">
+    
+</head>
+<body onload="createDispositivoSession('DispContainer')">
+    <section class = 'window' id = 'selectorContainer'>
+        <div class = 'LogoContainer'>
+            <img src="img/hrav.png" alt="Logo do Hospital Regional do Alto Vale do Itajaí">
+            <div class = 'title'>
+                <h1>Hospital Regional</h1>
+                <h2>do Alto Vale do Itajaí</h2>
+            </div>
+        </div>
+        <H2>Iniciar Sessão</H2>
+
+        <div class = 'contentContainer'>
+            <h3>Dispositivo</h3>
+            <div id = 'DispContainer' class = 'sectorScoreContainer'></div>
+        </div>
+        <div class = 'DualContainer'>
+            <h3 id = 'DispoID'>Setor: </h3>
+
+            <button class= 'buttons' onclick="startSession()">Iniciar</button>
+        </div>
+    </section>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/setor.js"></script>
+    <script src="js/session.js"></script>
+</body>
+</html>
