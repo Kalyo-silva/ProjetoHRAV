@@ -211,9 +211,9 @@ textarea{
 .counter{
     font-size: 2rem;
     font-weight: 800;
-    color: var(--dtcolor);
+    color: black;
     background: var(--ftcolor);
-    border: 2px solid var(--dtcolor);
+    border: 2px solid black;
     margin: 5px;
     border-radius: 50%;
     width: 4rem;
@@ -222,17 +222,68 @@ textarea{
     transition: all 0.2s;
 }
 
+
+
+.counter:nth-child(1) {
+    color : #FF0000;
+    background-color: white;
+    border: solid 2px #FF0000;
+}
+.counter:nth-child(2) {
+    color : #E61900;
+    background-color: white;
+    border: solid 2px #E61900;
+}
+.counter:nth-child(3) {
+    color : #CD3200;
+    background-color: white;
+    border: solid 2px #CD3200;
+}
+.counter:nth-child(4) {
+    color: #f24d00;
+    background-color: white;
+    border: solid 2px #f24d00;
+}
+.counter:nth-child(5) {
+    color : #F29B00;
+    background-color: white;
+    border: solid 2px #F29B00;
+}
+.counter:nth-child(6) {
+    color : #DFFF00;
+    background-color: white;
+    border: solid 2px #DFFF00;
+}
+.counter:nth-child(7) {
+    color : #A2D700;
+    background-color: white;
+    border: solid 2px #A2D700;
+}
+.counter:nth-child(8) {
+    color : #699600;
+    background-color: white;
+    border: solid 2px #699600;
+}
+.counter:nth-child(9) {
+    color : #50AF00;
+    background-color: white;
+    border: solid 2px #50AF00;
+}
+.counter:nth-child(10) {
+    color : #37C800;
+    background-color: white;
+    border: solid 2px #37C800;
+}
+.counter:nth-child(11) {
+    color : #1EC100;
+    background-color: white;
+    border: solid 2px #1EC100;
+}
 .activeCounter{
-    background-color: var(--bgcolor);
-    border: 2px solid var(--dtcolor);
+    border: 2px solid white;
     color: var(--ftcolor);
 }
 
-.counter:hover{
-    background-color: var(--bgcolor);
-    border: 2px solid var(--dtcolor);
-    color: --ftcolor;
-}
 
 #wrapper{
     width: 100%;
@@ -241,6 +292,62 @@ textarea{
     align-items: center;
 }
 
+.activeCounter:nth-child(1) {
+    background : #FF0000;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(2) {
+    background : #E61900;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(3) {
+    background : #CD3200;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(4) {
+    background: #f24d00;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(5) {
+    background : #F29B00;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(6) {
+    background : #DFFF00;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(7) {
+    background : #A2D700;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(8) {
+    background : #699600;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(9) {
+    background : #50AF00;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(10) {
+    background : #37C800;
+    color: black;
+    border: 2px solid black;
+}
+.activeCounter:nth-child(11) {
+    background : #1EC100;
+    color: black;
+    border: 2px solid black;
+}
+    
 #feedback{
     display: flex;
     flex-direction: column;

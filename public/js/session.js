@@ -64,7 +64,8 @@ async function startSession(){
     else{
         document.cookie = "discodigo="+dispositivoSelected.discodigo+"; SameSite=None; Secure";
         document.cookie = "setcodigo="+dispositivoSelected.setcodigo+"; SameSite=None; Secure";
-        
+        document.cookie = "start="+document.getElementById('Start').checked+"; SameSite=None; Secure";
+
         console.log(document.cookie);
         window.location.href = "questionario.html";
     }

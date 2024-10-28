@@ -14,6 +14,10 @@ var data;
 
 function loadFormData(){
     data = JSON.parse(sendToDataBase("../src/Questionario/getFormData.php", [{'setor' : getValueFromCookie('setcodigo')}]));   
+
+    if (getValueFromCookie('start') == 'false'){
+        loadQuestions();
+    }
 }
 
 var atual = -1;
@@ -238,6 +242,7 @@ async function loadQuestions(){
 
     content.style.opacity = 1;
 
+    clearForm();
     proximaQuestao();
 }
 
@@ -336,15 +341,20 @@ async function showEnding(){
 
     await sleep(5000);
 
-    banner.style.opacity = 0;
+    if (getValueFromCookie('start') == 'true'){
+        banner.style.opacity = 0;
 
-    await sleep(200);
+        await sleep(200);
 
-    bannerBtn.style.visibility = 'visible';
-    bannerMsg.innerText = 'Ei, tem um minutinho?'
-    bannerContent.innerText = 'Gostaria de responder uma pesquisa de satisfação?'
+        bannerBtn.style.visibility = 'visible';
+        bannerMsg.innerText = 'Ei, tem um minutinho?'
+        bannerContent.innerText = 'Gostaria de responder uma pesquisa de satisfação?'
 
-    banner.style.opacity = 1;
+        banner.style.opacity = 1;
 
-    clearForm();
+    }
+    else{
+        clearForm();
+        loadQuestions();
+    }
 }
