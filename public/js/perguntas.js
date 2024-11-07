@@ -167,4 +167,46 @@ function showTablePerguntasFiltrados(filtro){
     montaTabela(perguntasFiltradas, 'PerguntasTable', 'PerguntaInfo');
 }
 
+
+async function editPergunta(button){
+    if (button.className == 'IconButton'){
+        let valid = validateSession();
+
+        if (valid){
+            let Pergunta = GetRegistroFromId(getIdSelecionado('PerguntasTable'), perguntas);
+
+            let modal = createModal('Alterar Pergunta', 'Altere a Pergunta selecionada');  
+            let modalContainer = document.getElementById('modalContainer');
+            let confirmar = document.createElement('button');
+
+            let textarea = document.createElement('textarea')
+            textarea.setAttribute('rows', '4');
+            textarea.setAttribute('cols', '50');
+            textarea.id = 'textPergunta';
+            textarea.value = Object.values(Pergunta)[1];
+            textarea.style.margin = '0rem 2rem 2rem 2rem';
+
+            modalContainer.appendChild(textarea)
+            
+            confirmar.classList.add('buttons');
+            confirmar.classList.add('CenterButton');
+            confirmar.innerText='Editar';
+            confirmar.setAttribute('onclick', 'ModifyPergunta('+Object.values(Pergunta)[0]+')');
+
+            modalContainer.appendChild(confirmar);
+
+            await sleep(200); 
+            showModal(modal)
+        }
+    }
+}
+
+function ModifyPergunta(id){
+    let perpergunta = document.getElementById('textPergunta').value;
+    sendToDataBase('../src/perguntas/editPergunta.php', [{"percodigo" : id, "perpergunta" : perpergunta}]);
+    getPerguntas();
+    atualizaTable(perguntas, 'PerguntasTable', 'PerguntaInfo');
+    destroyModal();
+}
+
 getPerguntas();
