@@ -9,6 +9,6 @@ $setdescricao = filter_var($_POST['setdescricao'], FILTER_SANITIZE_STRING);
 $sql = "update tbsetor set setdescricao = $2 where setcodigo = $1";
 $values = [$setcodigo, $setdescricao];
 
-$result = execUpdate($db, $sql, $values);
+$result = executeDML($db, $sql, $values);
 
 echo $result;

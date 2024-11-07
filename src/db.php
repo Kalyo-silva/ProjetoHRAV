@@ -18,35 +18,14 @@ function execConsulta($con, $sql, $values = []){
     echo json_encode($results);
 };
 
-function execInsert($con, $sql, $values = []){
+function executeDML($con, $sql, $values = []){
     $query = pg_prepare($con, "", $sql);
-    $query = pg_execute($con, "", $values);
+    $query = @pg_execute($con, "", $values);
 
     if (!$query){
-        echo 'Error: Falha ao inserir valores no database';
-    } else{
-        echo "Sucesso!";
-    };
-};
-
-function execUpdate($con, $sql, $values = []){
-    $query = pg_prepare($con, "", $sql);
-    $query = pg_execute($con, "", $values);
-
-    if (!$query){
-        echo 'Error: Falha ao atualizar valores no database';
-    } else{
-        echo "Sucesso!";
-    };
-};
-
-function execDelete($con, $sql, $values = []){
-    $query = pg_prepare($con, "", $sql);
-    $query = pg_execute($con, "", $values);
-
-    if (!$query){
-        echo 'Error: Falha ao remover valores no database';
-    } else{
-        echo "Sucesso!";
-    };
+        echo false;
+    }
+    else{
+        echo true;
+    }
 };

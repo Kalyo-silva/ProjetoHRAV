@@ -14,6 +14,6 @@ $values = [$avacodigo, $percodigo, $setcodigo, $discodigo, $avaresposta, $avafee
 
 $sql = "insert into tbavaliacao values ($1, $2, $3, $4, $5, $6, now());";
 
-$result = execInsert($db,$sql,$values);
+$result = executeDML($db,$sql,$values);
 
 echo $result;

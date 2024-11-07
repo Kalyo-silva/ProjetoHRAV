@@ -95,7 +95,14 @@ function getSetorRemover(){
 }
 
 function removeSetor(setcodigo){
-    sendToDataBase('../src/setor/removeSetor.php', [{'setcodigo' : setcodigo}]);
+    let execute = sendToDataBase('../src/setor/removeSetor.php', [{'setcodigo' : setcodigo}]);
+
+    if (!execute){
+        let erro = createError('Erro ao Remover Setor', 'Este setor ja foi utilizado para responder avaliações, não é possivel removê-lo. Caso deseje, e possivel desativar o mesmo para não ser mais utilizado no sistema.');
+        showModal(erro);
+    }
+
+
     getSetores();
     atualizaTable(setores,'setorTable','SetorInfo');
     destroyModal();

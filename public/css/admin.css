@@ -695,3 +695,28 @@ footer svg{
         height: 2rem;
     }
   }
+  
+
+
+.ErrorModal{
+    color: darkred;
+}
+
+.ErrorModal header{
+    background-color: lightcoral !important;
+    border-bottom: 2px solid darkred !important;
+}
+
+.ErrorContainer{
+    border: 2px solid darkred !important;
+    width: 50% !important;
+}
+
+.ErrorModal h3{
+    color: darkred !important;
+}
+
+.ErrorModal button{
+    background-color: lightcoral !important;
+    border: 2px solid darkred !important;
+}

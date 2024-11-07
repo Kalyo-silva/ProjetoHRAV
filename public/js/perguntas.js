@@ -61,7 +61,13 @@ function getPerguntaRemover(){
 }
 
 function removePergunta(percodigo){
-    sendToDataBase('../src/perguntas/removePergunta.php', [{'percodigo' : percodigo}]);
+    let execute = sendToDataBase('../src/perguntas/removePergunta.php', [{'percodigo' : percodigo}]);
+
+    if (!execute){
+        let erro = createError('Erro ao Remover Pergunta', 'A pergunta já foi utilizada para obter respostas nas avaliações, não é possivel removê-la. Caso deseje, e possivel desativar a pergunta para não ser mais utilizada no questionário.');
+        showModal(erro);
+    }
+
     getPerguntas();
     atualizaTable(perguntas,'PerguntasTable','PerguntaInfo');
     destroyModal();

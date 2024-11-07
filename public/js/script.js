@@ -124,6 +124,22 @@ function createModal(TitleMsg, TextMsg){
     return modalDiv;
 }
 
+function createError(errorTitle, ErrorMessage){
+    let modal = createModal(errorTitle, ErrorMessage);
+    modal.className = 'ErrorModal';
+    modal.firstChild.className = 'ErrorContainer'
+
+    let confirmar = document.createElement('button');
+    confirmar.classList.add('buttons');
+    confirmar.classList.add('CenterButton');
+    confirmar.innerText='Voltar';
+    confirmar.setAttribute('onclick', 'destroyModal()');
+
+    modal.firstChild.appendChild(confirmar);
+    
+    return modal;
+}
+
 async function showModal(modal){
     if (modal.style.visibility == ''){
         modal.style.visibility = 'visible'

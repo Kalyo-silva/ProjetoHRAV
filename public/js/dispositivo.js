@@ -62,7 +62,13 @@ function getDispositivoRemover(){
 }
 
 function removeDispositivo(discodigo){
-    sendToDataBase('../src/Dispositivos/removeDispositivo.php', [{'discodigo' : discodigo}]);
+    let execute = sendToDataBase('../src/Dispositivos/removeDispositivo.php', [{'discodigo' : discodigo}]);
+    
+    if (!execute){
+        let erro = createError('Erro ao Remover Dispositivo', 'Este dispositivo foi utilizado para cadastrar respostas no sistema de avaliações, não é possivel removê-lo. Caso queira, é possivel desativar este dispositivo para ele não ser disponibilizado no início da sessão.');
+        showModal(erro);
+    }
+
     getDispositivos();
     atualizaTable(Dispositivos,'DispositivosTable','DispositivoInfo');
     destroyModal();

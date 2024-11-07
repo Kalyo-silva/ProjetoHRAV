@@ -9,6 +9,6 @@ $disnome = filter_var($_POST['disnome'], FILTER_SANITIZE_STRING);
 $sql = "update tbdispositivo set disnome = $2 where discodigo = $1";
 $values = [$discodigo, $disnome];
 
-$result = execUpdate($db, $sql, $values);
+$result = executeDML($db, $sql, $values);
 
 echo $result;

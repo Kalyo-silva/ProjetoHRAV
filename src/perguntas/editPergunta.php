@@ -9,6 +9,6 @@ $perpergunta = filter_var($_POST['perpergunta'], FILTER_SANITIZE_STRING);
 $sql = "update tbpergunta set perpergunta = $2 where percodigo = $1";
 $values = [$percodigo, $perpergunta];
 
-$result = execUpdate($db, $sql, $values);
+$result = executeDML($db, $sql, $values);
 
 echo $result;

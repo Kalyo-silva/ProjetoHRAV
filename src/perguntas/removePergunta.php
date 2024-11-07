@@ -8,6 +8,6 @@ $percodigo = filter_var($_POST['percodigo'], FILTER_SANITIZE_NUMBER_INT);
 $sql = "delete from tbpergunta where percodigo = $1";
 $values = [$percodigo];
 
-$result = execDelete($db, $sql, $values);
+$result = executeDML($db, $sql, $values);
 
 echo $result;

@@ -19,14 +19,14 @@ $setcodigo = explode(',', $setcodigo);
 $sql = "insert into tbpergunta values($1, $2, 1)";
 $values = [$percodigo ,$perdescricao];
 
-$result = execInsert($db, $sql, $values);
+$result = executeDML($db, $sql, $values);
 
 foreach ($setcodigo as $setor) {
     $sql = "insert into tbperguntasetor values($1, $2, 1)";
     $setor = filter_var($setor, FILTER_SANITIZE_NUMBER_INT);
     $values = [$percodigo, $setor];
 
-    $result = execInsert($db, $sql, $values);
+    $result = executeDML($db, $sql, $values);
 }
 
 echo $result;
