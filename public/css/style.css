@@ -90,9 +90,9 @@ textarea{
 #mainContainer h2{
     padding: 3rem;
     padding-bottom: 0;
-    height: inherit;
     width: 90%;
     font-size: 2rem;
+    margin: 0;
 }
 
 #mainContainer h3{
@@ -138,6 +138,7 @@ textarea{
     height: -webkit-fill-available;
     display: none;
     transition: all 0.2s;
+    justify-content: space-between;
 }
 
 #banner{
@@ -428,4 +429,38 @@ textarea{
 .CenterButton{
     margin-bottom: 2rem;
     width: 90%;
+}
+
+
+.TimerContainer{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 5px;
+}
+
+#Timer{
+    width: 100%;
+    height: 5px;
+    background: var(--dtcolor);
+    transition: all 30s;
+    transition-timing-function: linear;
+}
+
+.CountdownContainer{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 5px;
+}
+
+#Countdown{
+    display: none;
+    width: 90%;
+    height: 5px;
+    background: var(--dtcolor);
+    transition: all 5s;
+    transition-timing-function: linear;
+    margin: 5rem auto;
+    border-radius: 50px;
 }

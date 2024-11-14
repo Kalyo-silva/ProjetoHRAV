@@ -1,3 +1,6 @@
+var inactive;
+var runTimer;
+var FormStart;
 var cookies = document.cookie.split(';');
 
 function getValueFromCookie(cookieName){
@@ -11,9 +14,78 @@ function getValueFromCookie(cookieName){
 }
 
 var data;
+var timer;
+
+async function startTimer(){
+    runTimer = true;
+    timer = 30;
+    inactive = false;
+
+    for (undefined; timer >= 0; timer--) {
+        await sleep(1000);    
+    }
+
+    if (runTimer){
+        inactive = true;
+        ShowTimeout();
+    }
+};
+
+async function resetTimer(){
+    if (!runTimer){
+        startTimer();
+    }
+
+    timer = 30;
+    
+    document.getElementById('Timer').style = "transition: none; width : 100%";
+    await sleep(100);
+    document.getElementById('Timer').style = "width : 0%";
+}
+
+async function ShowTimeout() {
+   destroyModal();
+   let modal = createModal('Você ainda está ai?', 'Aviso: sessão inativa, cancelando o formulário em 5...');
+   let modalContainer = document.getElementById('modalContainer');
+
+    document.getElementById('modalClose').style = 'display : none;';
+
+    let confirmar = document.createElement('button');
+    confirmar.classList.add('buttons');
+    confirmar.classList.add('CenterButton');
+    confirmar.innerText='Retomar';
+    confirmar.onclick = function(){inactive = false};
+    
+    modalContainer.appendChild(confirmar);
+    
+    await sleep(1);
+    
+    showModal(modal);
+
+    for (let i = 5; i >= 0; i--) {
+        if(!inactive){
+            break;
+        }
+
+        await sleep(100);
+        document.getElementById('modalText').innerText = 'Aviso: sessão inatíva, cancelando o formulário em '+i+'...';
+        await sleep(900);
+    }
+
+    if(!inactive){
+        resetTimer();
+    }
+    else{
+        showEnding();
+    }
+
+    destroyModal();
+}
 
 function loadFormData(){
-    data = JSON.parse(sendToDataBase("../src/Questionario/getFormData.php", [{'setor' : getValueFromCookie('setcodigo')}]));   
+    data = JSON.parse(sendToDataBase("../src/lib/main.php", [{'op' : 'getAll', 'rt' : 'questionario', 'setor' : getValueFromCookie('setcodigo')}]));   
+
+    console.log(data);
 
     if (getValueFromCookie('start') == 'false'){
         loadQuestions();
@@ -41,6 +113,10 @@ function createCounter(){
 }
 
 function getCounterValue(value){        
+    if (!FormStart){
+        resetTimer();
+    }
+
     let counters = root.getElementsByTagName('button');
 
     for (let index = 0; index <= 10; index++) {
@@ -124,22 +200,6 @@ function createModal(TitleMsg, TextMsg){
     return modalDiv;
 }
 
-function createError(errorTitle, ErrorMessage){
-    let modal = createModal(errorTitle, ErrorMessage);
-    modal.className = 'ErrorModal';
-    modal.firstChild.className = 'ErrorContainer'
-
-    let confirmar = document.createElement('button');
-    confirmar.classList.add('buttons');
-    confirmar.classList.add('CenterButton');
-    confirmar.innerText='Voltar';
-    confirmar.setAttribute('onclick', 'destroyModal()');
-
-    modal.firstChild.appendChild(confirmar);
-    
-    return modal;
-}
-
 async function showModal(modal){
     if (modal.style.visibility == ''){
         modal.style.visibility = 'visible'
@@ -150,10 +210,16 @@ async function showModal(modal){
 function destroyModal(){    
     let modalDiv = document.getElementById('modal');
 
-    modalDiv.remove();
+    if(modalDiv != undefined){
+        modalDiv.remove();
+    }
 }
 
 async function quit(){
+    if (runTimer){
+        resetTimer();
+    }
+    
     let modal = createModal('Cancelar Formulário?', 'Tem certeza que deseja limpar a pesquisa de satisfação?');
     let modalContainer = document.getElementById('modalContainer');
 
@@ -170,6 +236,7 @@ async function quit(){
 }
 
 function clearForm(){
+    document.getElementById('Timer').style = "transition: none; width : 100%";
     var feed = document.getElementById('complemento');
     
     for (let index = 0; index < Object.keys(data).length; index++) {
@@ -187,6 +254,7 @@ function proximaQuestao(button){
         if (atual >= 0){
             saveFeedback();
             document.getElementById('ant').className = 'buttons'; 
+            resetTimer();
         }     
 
         atual += 1;
@@ -199,6 +267,10 @@ function proximaQuestao(button){
             showFeedback();
         } else{
             hideFeedback();
+        }
+
+        if (!FormStart){
+            resetTimer();
         }
 
         if (atual == Object.keys(data).length-1){
@@ -220,6 +292,7 @@ function questaoAnterior(button){
         saveFeedback();
 
         atual -= 1;
+
     
         showQuestao(data[atual].perpergunta);
         getCounterValue(data[atual].nota);
@@ -230,6 +303,8 @@ function questaoAnterior(button){
         } else{
             hideFeedback();
         }      
+
+        resetTimer();
 
         if (atual == 0){
             button.classList.add('disabled');
@@ -245,6 +320,8 @@ function showQuestao(pergunta){
 
 
 async function loadQuestions(){
+    FormStart = true;
+    runTimer = false;
     let banner = document.getElementById('banner');
     let content = document.getElementById('content');
 
@@ -260,6 +337,9 @@ async function loadQuestions(){
 
     clearForm();
     proximaQuestao();
+    
+    await sleep(100);
+    FormStart = false;
 }
 
 async function showInvalidFormModal(){
@@ -287,7 +367,6 @@ async function ShowConfirmResposta(){
     confirmar.classList.add('CenterButton');
     confirmar.innerText='Concluir';
     confirmar.onclick = function(){EnviarDados()};
-
     modalContainer.appendChild(confirmar);
 
     await sleep(1);
@@ -316,58 +395,56 @@ function validaRespostas(){
 }
 
 function EnviarDados(){
-    let avacodigo = JSON.parse(getFromDataBase('../src/Questionario/getNextAvacodigo.php'));
-    avacodigo = Object.values(avacodigo[0])[0];
-
-    for (let i = 0; i < data.length; i++) {
-        sendToDataBase('../src/Questionario/SendFormResults.php',
-        [{"avacodigo" : avacodigo,
-          "percodigo" : data[i].percodigo,
-          "setcodigo" : getValueFromCookie('setcodigo'),
-          "discodigo" : getValueFromCookie('discodigo'),
-          "avaresposta" : data[i].nota,
-          "avafeedback" : data[i].feedback}]
-        )
-    }
-
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'questionario', 
+                                            'op' : 'insert',
+                                            'data' : JSON.stringify(data),
+                                            'setcodigo' : getValueFromCookie('setcodigo'),
+                                            'discodigo' :  getValueFromCookie('discodigo')}]);
+    
     destroyModal();
     showEnding();
 }
 
 async function showEnding(){
+    runTimer = false;
+
     let banner = document.getElementById('banner');
     let content = document.getElementById('content');
     let bannerMsg = document.getElementById('BannerMsg');
     let bannerContent = document.getElementById('BannerContent');
     let bannerBtn = document.getElementById('BannerBtn');
+    let Countdown = document.getElementById('Countdown');
 
     banner.style.opacity = 0;
     content.style.opacity = 0;
 
     await sleep(200);
 
-    bannerBtn.style.visibility = 'hidden';
+    Countdown.style.display = 'inline-block';
+    Countdown.style.width = '90%';
+    bannerBtn.style.display = 'none';
     bannerContent.innerText = 'O Hospital Regional Alto Vale (HRAV) agradece sua resposta e ela é muito importante para nós, pois nos ajuda a melhorar continuamente nossos serviços.'
     bannerMsg.innerText = 'Obrigado Pela sua Resposta!'
 
     banner.style.display = 'flex';
     content.style.display = 'none';
 
+    await sleep(1);
     banner.style.opacity = 1;
-
+    Countdown.style.width = '0%';
     await sleep(5000);
 
     if (getValueFromCookie('start') == 'true'){
         banner.style.opacity = 0;
 
         await sleep(200);
-
-        bannerBtn.style.visibility = 'visible';
+        Countdown.style.display = 'none';
+        bannerBtn.style.display = 'inline-block';
         bannerMsg.innerText = 'Ei, tem um minutinho?'
         bannerContent.innerText = 'Gostaria de responder uma pesquisa de satisfação?'
 
         banner.style.opacity = 1;
-
+        
     }
     else{
         clearForm();

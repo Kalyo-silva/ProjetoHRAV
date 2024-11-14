@@ -1,7 +1,7 @@
 var Dispositivos;
 
 function getDispositivos(){
-    Dispositivos = getFromDataBase("../src/Dispositivos/getDispositivos.php");
+    Dispositivos = sendToDataBase("../src/lib/main.php", [{'rt' : 'dispositivos', 'op' : 'getTable'}]);
 
     if (Dispositivos == '[]'){
         Dispositivos = [{"discodigo" : 0, "Dispositivo" : 'Nenhum Registro encontrado :('}];
@@ -27,7 +27,7 @@ function getDispositivoDesativar(button){
 }
 
 function desativaDispositivo(discodigo){
-    sendToDataBase('../src/Dispositivos/desativaDispositivo.php', [{'discodigo' : discodigo}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'dispositivos', 'op' : 'deactivate', 'discodigo' : discodigo}]);
     getDispositivos();
     atualizaTable(Dispositivos ,'DispositivosTable','DispositivoInfo');
 }
@@ -62,7 +62,7 @@ function getDispositivoRemover(){
 }
 
 function removeDispositivo(discodigo){
-    let execute = sendToDataBase('../src/Dispositivos/removeDispositivo.php', [{'discodigo' : discodigo}]);
+    let execute = sendToDataBase('../src/lib/main.php', [{'rt' : 'dispositivos', 'op' : 'delete','discodigo' : discodigo}]);
     
     if (!execute){
         let erro = createError('Erro ao Remover Dispositivo', 'Este dispositivo foi utilizado para cadastrar respostas no sistema de avaliações, não é possivel removê-lo. Caso queira, é possivel desativar este dispositivo para ele não ser disponibilizado no início da sessão.');
@@ -135,7 +135,7 @@ function inserirDispositivo(){
         }
     }
 
-    sendToDataBase('../src/Dispositivos/addDispositivo.php', [{'disnome' : disnome, 'setcodigo' : setor}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'dispositivos', 'op' : 'insert','disnome' : disnome, 'setcodigo' : setor}]);
     getDispositivos();
     atualizaTable(Dispositivos,'DispositivosTable','DispositivoInfo');
     destroyModal();
@@ -194,7 +194,7 @@ async function editDispositivo(button){
 
 function ModifyDispositivo(id){
     let disnome = document.getElementById('ModalInput').value;
-    sendToDataBase('../src/dispositivos/editDispositivo.php', [{"discodigo" : id, "disnome" : disnome}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'dispositivos', 'op' : 'update', "discodigo" : id, "disnome" : disnome}]);
     getDispositivos();
     atualizaTable(Dispositivos,'DispositivosTable','DispositivoInfo');
     destroyModal();
