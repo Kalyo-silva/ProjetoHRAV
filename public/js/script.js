@@ -200,6 +200,23 @@ function createModal(TitleMsg, TextMsg){
     return modalDiv;
 }
 
+function createError($title, $message){
+    let modal = createModal($title, $message);
+    modal.className = 'ErrorModal';
+
+    let container = modal.firstChild;
+
+    container.className = 'ErrorContainer';
+
+    let button = document.createElement('button');
+    button.innerText = 'Cancelar';
+    button.setAttribute('onclick', 'destroyModal()');
+    button.className = 'buttons CenterButton';
+    container.appendChild(button);
+
+    return modal;
+}
+
 async function showModal(modal){
     if (modal.style.visibility == ''){
         modal.style.visibility = 'visible'
