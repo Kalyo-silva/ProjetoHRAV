@@ -83,7 +83,7 @@ async function ShowTimeout() {
 }
 
 function loadFormData(){
-    data = JSON.parse(sendToDataBase("../src/lib/main.php", [{'op' : 'getAll', 'rt' : 'questionario', 'setor' : getValueFromCookie('setcodigo')}]));   
+    data = JSON.parse(sendToDataBase("../src/lib/main.php", [{'op' : 'listar', 'rt' : 'questionario', 'setor' : getValueFromCookie('setcodigo')}]));   
 
     console.log(data);
 
@@ -413,7 +413,7 @@ function validaRespostas(){
 
 function EnviarDados(){
     sendToDataBase('../src/lib/main.php', [{'rt' : 'questionario', 
-                                            'op' : 'insert',
+                                            'op' : 'inserir',
                                             'data' : JSON.stringify(data),
                                             'setcodigo' : getValueFromCookie('setcodigo'),
                                             'discodigo' :  getValueFromCookie('discodigo')}]);

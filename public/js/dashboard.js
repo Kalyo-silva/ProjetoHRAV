@@ -8,7 +8,7 @@ function loadDashboard(){
 }
 
 function setResultData(){
-    let dataset = JSON.parse(getFromDataBase('../src/dashboard/getDadosRespostas.php'));
+    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaRespostas'}]));
 
     document.getElementById('avHj').innerText = Object.values(dataset[0])[0];
     document.getElementById('AvNum').innerText = Object.values(dataset[0])[1];
@@ -16,7 +16,7 @@ function setResultData(){
 }
 
 function createSectorScore(){
-    let dataset = JSON.parse(getFromDataBase('../src/dashboard/getDadosNotasSetores.php'));
+    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaNotasSetores'}]));
 
     for (let i = 0; i < Object.keys(dataset).length; i++) {
             drawValues(Object.values(dataset[i])[0], Object.values(dataset[i])[1]); 
@@ -57,7 +57,7 @@ function drawGraph(tipo, button){
     if (button != undefined){
         setButton(button);
     }
-    let dataset = JSON.parse(sendToDataBase('../src/dashboard/getDataGraph.php', [{"tipo" : tipo}]));
+    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaDadosGrafico', 'tipo' : tipo}])); 
 
     let datas = []
     let qtds = []
@@ -124,7 +124,7 @@ function drawGraph(tipo, button){
 }
 
 function createFeedback(){
-    let dataset = JSON.parse(getFromDataBase('../src/dashboard/getDataLastFeedback.php')); 
+    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaUltimoFeedback'}])); 
 
     let container = document.getElementById('LastFeedContainer');
 

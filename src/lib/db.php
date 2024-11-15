@@ -9,6 +9,21 @@ class dbConn {
 
     private $connResource;
 
+    public function setHost($host){
+        $this->host = $host;
+    }
+
+    public function setDbname($dbname){
+        $this->dbname = $dbname;
+    }
+
+    public function setUser($user){
+        $this->user = $user;
+    }
+    public function setPassword($password){
+        $this->password = $password;
+    }
+
     public function setStatus($status){
         $this->status = $status;
     }
@@ -17,19 +32,8 @@ class dbConn {
         return $this->status;
     }
 
-    public function __construct($file, $autoload = true) {
-        $config = json_decode(file_get_contents($file), true);
-
-        $this->host = $config['host'];    
-        $this->dbname = $config['dbname'];
-        $this->user = $config['user'];
-        $this->password = $config['password'];
-
-        $this->status = 'Desconectado.';
-
-        if ($autoload){
-            $this->connect();
-        }
+    public function __construct() {
+        $this->setStatus('Desconectado.');
     }
 
     public function connect(){

@@ -26,31 +26,11 @@ class router{
     public function route(){
         $rota = $this->getRoute();
 
-        /*
-        switch ($this->getOperation()) {
-            case 'getAll':
-                $this->Resource = 'model';
-                $this->ClassName = 'model';
-                break;
-            case 'insert':
-                $this->Resource = 'model';
-                $this->ClassName = 'model';
-                break;
-            case 'getTable':
-                $this->Resource = 'model';
-                $this->ClassName = 'model';     
-                break;           
-            default:
-                $this->Resource = "controller";
-                $this->ClassName = "controller";
-                if(!isset($rota)) {
-                    $rota = "main";
-                }
-            break;
-        }        */
-        $this->Resource = 'model';
-        $this->ClassName = 'model'; 
-    
+        $this->Resource = "controller";
+        $this->ClassName = "controller";
+        if(!isset($rota)) {
+            $rota = "main";
+        }
 
         $this->Resource = '../'.$this->Resource . "/" . $this->ClassName . "_" . $rota . ".php";
         $this->ClassName = str_replace("_", "", $this->ClassName) . $rota;

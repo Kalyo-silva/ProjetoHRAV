@@ -3,7 +3,7 @@ var dispositivoSelected;
 var Iddispositivo;
 
 function getDispositivos(){
-    dispositivos = sendToDataBase("../src/lib/main.php", [{'rt' : 'dispositivos', 'op' : 'getAll'}]);
+    dispositivos = sendToDataBase("../src/lib/main.php", [{'rt' : 'dispositivos', 'op' : 'listar'}]);
     dispositivos = JSON.parse(dispositivos);
 }
 
