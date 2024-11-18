@@ -1,10 +1,10 @@
 function getUser(id){
     if (id != ''){
-        let user = sendToDataBase('../src/login/getUser.php',[{'usucodigo' : id}]);
+        let user = sendToDataBase('../src/lib/main.php',[{'rt' : 'login', 'op' : 'getUser', 'usucodigo' : id}]);
         
-        if (user != '[]'){
+        if (user != 'false'){
             user = JSON.parse(user);
-            document.getElementById('usunome').innerText = user[0].usunome;
+            document.getElementById('usunome').innerText = user.usunome;
         }
         else{
             document.getElementById('usunome').innerText = '...';
@@ -20,10 +20,10 @@ function validadeLogin(){
     let senha = document.getElementById('ususenha').value;
     senha = senha.trim();
     if (id != '' && senha != ''){
-        let login = sendToDataBase('../src/login/validateLogin.php', [{'usucodigo' : id, 'ususenha' : senha}]);
+        let login = sendToDataBase('../src/lib/main.php', [{'rt' : 'login', 'op' : 'validaLogin', 'usucodigo' : id, 'ususenha' : senha}]);
 
-        if (login != '[]'){
-            sendToDataBase('../src/login/startSession.php', [{'usucodigo' : id}])
+        if (login != 'false'){
+            sendToDataBase('../src/lib/main.php', [{'rt' : 'login', 'op' : 'iniciaSessao', 'usucodigo' : id}])
             window.location.href = 'admin.html';
         } 
         else{
@@ -52,7 +52,7 @@ function sendToLogin(){
 }
 
 function validateSession(){
-    let valid = getFromDataBase('../src/login/getSessionStatus.php');
+    let valid = sendToDataBase('../src/lib/main.php', [{'rt' : 'login', 'op' : 'statusSessao'}]);
 
     if (!valid){
         showWarningNoLogin();

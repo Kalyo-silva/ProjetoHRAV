@@ -28,9 +28,6 @@ class router{
 
         $this->Resource = "controller";
         $this->ClassName = "controller";
-        if(!isset($rota)) {
-            $rota = "main";
-        }
 
         $this->Resource = '../'.$this->Resource . "/" . $this->ClassName . "_" . $rota . ".php";
         $this->ClassName = str_replace("_", "", $this->ClassName) . $rota;

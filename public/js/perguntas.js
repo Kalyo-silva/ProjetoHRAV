@@ -1,7 +1,7 @@
 var perguntas;
 
 function getPerguntas(){
-    perguntas = getFromDataBase("../src/perguntas/getPerguntas.php");
+    perguntas = sendToDataBase("../src/lib/main.php", [{'rt' : 'perguntas', 'op' : 'listarTabela'}]);
 
     if (perguntas == '[]'){
         perguntas = [{"percodigo" : 0, "Pergunta" : 'Nenhum Registro encontrado :(', "Situacao" : '', "Setores Cadastrados" : ''}];
@@ -27,7 +27,7 @@ function getPerguntaDesativar(button){
 }
 
 function desativaPergunta(percodigo){
-    sendToDataBase('../src/perguntas/desativaPergunta.php', [{'percodigo' : percodigo}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'perguntas', 'op' : 'desativar', 'percodigo' : percodigo}]);
     getPerguntas();
     atualizaTable(perguntas ,'PerguntasTable','PerguntaInfo');
 }
@@ -61,7 +61,7 @@ function getPerguntaRemover(){
 }
 
 function removePergunta(percodigo){
-    let execute = sendToDataBase('../src/perguntas/removePergunta.php', [{'percodigo' : percodigo}]);
+    let execute = sendToDataBase('../src/lib/main.php', [{'rt' : 'perguntas', 'op' : 'remover', 'percodigo' : percodigo}]);
 
     if (!execute){
         let erro = createError('Erro ao Remover Pergunta', 'A pergunta já foi utilizada para obter respostas nas avaliações, não é possivel removê-la. Caso deseje, e possivel desativar a pergunta para não ser mais utilizada no questionário.');
@@ -132,7 +132,7 @@ function inserirPergunta(){
         }
     }
 
-    sendToDataBase('../src/perguntas/addPergunta.php', [{'perdescricao' : pergunta, 'setcodigo' : setores}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'perguntas', 'op' : 'inserir', 'perpergunta' : pergunta, 'setcodigo' : setores}]);
     getPerguntas();
     atualizaTable(perguntas,'PerguntasTable','PerguntaInfo');
     destroyModal();
@@ -209,7 +209,7 @@ async function editPergunta(button){
 
 function ModifyPergunta(id){
     let perpergunta = document.getElementById('textPergunta').value;
-    sendToDataBase('../src/perguntas/editPergunta.php', [{"percodigo" : id, "perpergunta" : perpergunta}]);
+    sendToDataBase('../src/lib/main.php', [{'rt' : 'perguntas', 'op' : 'editar', "percodigo" : id, "perpergunta" : perpergunta}]);
     getPerguntas();
     atualizaTable(perguntas, 'PerguntasTable', 'PerguntaInfo');
     destroyModal();
