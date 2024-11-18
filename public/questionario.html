@@ -20,11 +20,17 @@
         <div id = 'banner'>
             <h1 id ='BannerMsg'>Ei, tem um minutinho?</h1>    
             <h2 id = 'BannerContent'>Gostaria de responder uma pesquisa de satisfação?</h2>
+            
+            <div id = 'Countdown'></div>
 
             <button id = 'BannerBtn' class="centerButton" onclick='loadQuestions()'>Vamos Lá!</button>
         </div>
 
         <div id = 'content'>
+            <div class = 'TimerContainer'>
+                <div id = 'Timer'></div>
+            </div>
+
             <h2 id = 'question'></h2>
 
             <div id = 'wrapper'>
@@ -34,7 +40,7 @@
                 <div id = 'FeedbackContainer'>
                     <div id ='feedback'>
                         <h3>Gostaria de deixar um feedback adicional?</h3>
-                        <textarea name="" id="complemento"></textarea>
+                        <textarea name="" id="complemento" onkeydown="resetTimer()"></textarea>
                     </div>
                     <section id="controls">
                         <button id = 'ant' class = 'buttons disabled' onclick="questaoAnterior(this)">Anterior</button>

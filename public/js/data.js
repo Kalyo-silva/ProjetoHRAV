@@ -3,22 +3,6 @@ function atualizaTable(table, tableTagId, toolbar){
     desativaButtonsToolbar(toolbar);
 }
 
-function getFromDataBase(request){
-    let result = [];
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            result = xhttp.response;
-        }
-    };
-    xhttp.open("POST", request, false);
-    xhttp.send();   
-
-    console.log(result);
-
-    return result
-}
-
 function sendToDataBase(request, values){
     let params = '';
 

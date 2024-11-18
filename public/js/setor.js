@@ -1,7 +1,7 @@
 var setores;
 
 function getSetores(){
-    setores = getFromDataBase("../src/setor/getSetor.php");
+    setores = sendToDataBase("../src/lib/main.php", [{'rt' : 'setor', 'op' : 'listarTabela'}]);
 
     if (setores == '[]'){
         setores = [{"setcodigo" : 0, "Descrição do Setor" : 'Nenhum Registro encontrado :(', "Situação" : ''}];
@@ -60,7 +60,7 @@ async function addNewSetor(){
 function inserirSetor(){
     let setor = document.getElementById('ModalInput').value;
     if (setor.trim() != '') {
-        sendToDataBase('../src/setor/addSetor.php', [{"setdescricao" : setor}]);
+        sendToDataBase('../src/lib/main.php', [{"rt" : 'setor', "op" : 'inserir', "setdescricao" : setor}]);
         getSetores();
         atualizaTable(setores,'setorTable','SetorInfo');
         destroyModal();
@@ -95,7 +95,7 @@ function getSetorRemover(){
 }
 
 function removeSetor(setcodigo){
-    let execute = sendToDataBase('../src/setor/removeSetor.php', [{'setcodigo' : setcodigo}]);
+    let execute = sendToDataBase('../src/lib/main.php', [{"rt" : 'setor', "op" : 'remover', 'setcodigo' : setcodigo}]);
 
     if (!execute){
         let erro = createError('Erro ao Remover Setor', 'Este setor ja foi utilizado para responder avaliações, não é possivel removê-lo. Caso deseje, e possivel desativar o mesmo para não ser mais utilizado no sistema.');
@@ -119,7 +119,7 @@ function getSetorDesativar(button){
 }
 
 function desativaSetor(setcodigo){
-    sendToDataBase('../src/setor/desativasetor.php', [{'setcodigo' : setcodigo}]);
+    sendToDataBase('../src/lib/main.php', [{"rt" : 'setor', "op" : 'desativar', 'setcodigo' : setcodigo}]);
     getSetores();
     atualizaTable(setores ,'setorTable','SetorInfo');
 }
@@ -159,7 +159,7 @@ async function EditSetor(button){
 
 function ModifySetor(id){
     let setor = document.getElementById('ModalInput').value;
-    sendToDataBase('../src/setor/editSetor.php', [{"setcodigo" : id, "setdescricao" : setor}]);
+    sendToDataBase('../src/lib/main.php', [{"rt" : 'setor', "op" : 'editar', "setcodigo" : id, "setdescricao" : setor}]);
     getSetores();
     atualizaTable(setores,'setorTable','SetorInfo');
     destroyModal();
