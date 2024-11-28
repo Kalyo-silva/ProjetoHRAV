@@ -306,12 +306,12 @@ input, select{
     fill: var(--dtcolor);
     width: -webkit-fill-available;
 }
-
+/*
 .IconButton:hover{
     color: var(--bgcolor);
     fill: var(--bgcolor);
     border: 2px solid var(--bgcolor);
-}
+}*/
 
 .IconButton h3{
     margin: 0;
