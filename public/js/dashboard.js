@@ -1,47 +1,41 @@
 var graph;
+var selectedSetor;
+
 
 function loadDashboard(){
-    setResultData();
-    createSectorScore();
+    setResultData(1);
+    createSectorScore(1);
     drawGraph(1);
     createFeedback();
 }
 
-function setResultData(){
-    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaRespostas'}]));
-
-    document.getElementById('avHj').innerText = Object.values(dataset[0])[0];
-    document.getElementById('AvNum').innerText = Object.values(dataset[0])[1];
-    document.getElementById('mdGeral').innerText = Object.values(dataset[0])[2];
+function setResultData(tipo){
+    let dataset = sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaRespostas', 'tipo' : tipo}]);
+    document.getElementById('DadosResposta').innerHTML = dataset;
 }
 
-function createSectorScore(){
-    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaNotasSetores'}]));
-
-    for (let i = 0; i < Object.keys(dataset).length; i++) {
-            drawValues(Object.values(dataset[i])[0], Object.values(dataset[i])[1]); 
-    }
+function createSectorScore(tipo){
+     let dataset = sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaNotasSetores', 'tipo' : tipo}]);
+     document.getElementById('scores').innerHTML = dataset;
 }
 
+function createFeedback(setcodigo){
+    let dataset = sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaUltimoFeedback', 'setcodigo' : setcodigo}]); 
+    document.getElementById('Feedbacks').innerHTML = dataset;
+}
 
-function drawValues(item, value){
-    let container = document.getElementById('scores');
+function selectMedia(button){
+    let container = button.parentNode;
+    let buttons = container.getElementsByTagName('h4');
 
-    let div = document.createElement('div');
-    let h3 = document.createElement('h3');
-    let h2 = document.createElement('h2');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].className = '';
+    } 
 
-    div.className = 'sectorIcon';
-    h3.innerText = item;
-    h2.innerText = value;
-
-    container.appendChild(div);
-    div.appendChild(h3);
-    div.appendChild(h2);
+    button.className = 'invSelected';
 }
 
 function setButton(button){
-
     let container = document.getElementById('GraphControls');
 
     let buttons = container.getElementsByTagName('h4');
@@ -57,7 +51,7 @@ function drawGraph(tipo, button){
     if (button != undefined){
         setButton(button);
     }
-    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaDadosGrafico', 'tipo' : tipo}])); 
+    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaDadosGrafico', 'tipo' : tipo, 'setcodigo' : selectedSetor}])); 
 
     let datas = []
     let qtds = []
@@ -123,27 +117,51 @@ function drawGraph(tipo, button){
     });
 }
 
-function createFeedback(){
-    let dataset = JSON.parse(sendToDataBase('../src/lib/main.php', [{'rt' : 'dashboard', 'op' : 'carregaUltimoFeedback'}])); 
+function selectSetor(setor, id){
+    let container = setor.parentNode;
 
-    let container = document.getElementById('LastFeedContainer');
+    let setores = container.getElementsByTagName('div');
 
-    for(let i = 0; i < dataset.length; i++){
-        let div = document.createElement('div');
-        let h2 = document.createElement('h2');
-        let h3 = document.createElement('h3');
-        let h4 = document.createElement('h4');
+    if (selectedSetor == id){
+        for (let i = 0; i < setores.length; i++) {
+            setores[i].className = 'sectorIcon';
+        } 
+
+        createFeedback();
         
-        div.className = 'feedback';
-        h2.className = 'feedbackTitle';
-
-        h2.innerText = dataset[i].perpergunta;
-        h3.innerText = dataset[i].avafeedback;
-        h4.innerText = dataset[i].avadatahora+' - '+dataset[i].setdescricao;
-
-        container.appendChild(div);
-        div.appendChild(h2);
-        div.appendChild(h3);
-        div.appendChild(h4);
+        selectedSetor = '';
     }
+    else{
+        for (let i = 0; i < setores.length; i++) {
+            setores[i].className = 'sectorIcon inactivesectorIcon';
+        }
+        
+        createFeedback(id);
+
+        setor.className = 'sectorIcon';
+        selectedSetor = id;
+    }
+
+   
+}
+
+function showHistFeedback(){
+    let modal = createModal('Histórico de Feedbacks'); 
+
+    showModal(modal);
+
+    let container = modal.firstChild;
+
+    container.style = "width: 80%; height: 90%;";
+
+    let content = sendToDataBase('../src/lib/main.php', [{'rt' : 'historico', 'op' : 'Listar', 'setor' : ''}])
+
+    container.innerHTML += content;
+}
+
+function showHistFeedbackFiltrado(setor){
+    let content = sendToDataBase('../src/lib/main.php', [{'rt' : 'historico', 'op' : 'ListarFiltrado', 'setor' : setor.value}])
+
+    document.getElementById('HistTable').innerHTML = content;
+
 }

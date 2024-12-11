@@ -18,7 +18,7 @@ class modelPerguntas {
                                                  using (setcodigo)  
                                                  where percodigo = tbpergunta.percodigo), ', ') as ".'"Setores Cadastrados"'."
                           from tbpergunta
-                         order by 1");
+                         order by 3, 1");
         $query->open();
         while($row = $query->Next()) {
             array_push($result, $row);

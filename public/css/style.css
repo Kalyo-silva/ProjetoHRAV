@@ -377,6 +377,7 @@ textarea{
     justify-content: center;
     visibility: hidden;
     opacity: 0;
+    z-index: 2;
     transition: all 0.2s;
 }
 

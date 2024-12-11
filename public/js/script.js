@@ -181,7 +181,7 @@ function createModal(TitleMsg, TextMsg){
     close.id = 'modalClose';
 
 
-    close.onclick = function(){destroyModal()}
+    close.setAttribute("onclick", "destroyModal()");
 
     document.body.appendChild(modalDiv);
     modalDiv.appendChild(modalContainer);
@@ -190,7 +190,7 @@ function createModal(TitleMsg, TextMsg){
     header.appendChild(close);
 
         
-    if (TextMsg != ''){
+    if (TextMsg != '' && TextMsg != undefined){
         let text = document.createElement('h2');
         text.id = 'modalText';
         text.innerText = TextMsg;   

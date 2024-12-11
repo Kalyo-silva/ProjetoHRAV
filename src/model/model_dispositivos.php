@@ -30,7 +30,7 @@ class modelDispositivos {
                           from tbdispositivo
                           join tbsetor
                          using (setcodigo)
-                         order by 1");
+                         order by 3, 1");
         $query->open();
         while($row = $query->Next()) {
             array_push($result, $row);

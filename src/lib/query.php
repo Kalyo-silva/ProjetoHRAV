@@ -30,7 +30,7 @@ class Query{
 
     public function Open(){
         $this->queryResource = pg_prepare($this->dbConn->getInternalConnection(), '', $this->sql);
-        $this->queryResource = @pg_execute($this->dbConn->getInternalConnection(), '', $this->values);
+        $this->queryResource = pg_execute($this->dbConn->getInternalConnection(), '', $this->values);
         if ($this->queryResource){
             $this->count = pg_num_rows($this->queryResource);
             return true;
