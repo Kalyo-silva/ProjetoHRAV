@@ -69,10 +69,21 @@ class viewDashboard{
 
         $html = '';
         foreach ($table as $row) {
-            $html .= "<div class='sectorIcon' onclick = 'selectSetor(this, ".$row['setcodigo']."); drawGraph(1, ".$row['setcodigo'].")')'>
-                        <h3>".$row['setdescricao']."</h3>
-                        <h2>".$row['nota']."</h2>
-                      </div>";
+            $html .= "<div class='sectorIcon' onclick = 'selectSetor(this, ".$row['setcodigo']."); drawGraph()')'>
+                        <h3>".$row['setdescricao']."</h3>";
+            
+            
+            if ($row['nota'] < 6){
+                $html .= "<h2 style = 'color:red'>".$row['nota']."</h2>";
+            } 
+            else if ($row['nota'] < 9){
+                $html .= "<h2 style = 'color: #f29b00;'>".$row['nota']."</h2>";
+            } 
+            else {
+                $html .= "<h2 style = 'color:green'>".$row['nota']."</h2>";
+            } 
+
+            $html .= "</div>";
         }
         
         echo $html; 

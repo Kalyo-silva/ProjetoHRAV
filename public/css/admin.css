@@ -815,28 +815,69 @@ thead{
 
 
 ::-webkit-scrollbar {
-    width: 3px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: var(--bgcolor);
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--dtcolor);
-    border-radius: 15px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--dtcolor);
+    width: 0px;
   }
 
 
 #HistTable{
-    width: 100%;
-    height: 100%;
+    max-height: 100%;
     overflow-y: scroll;
+    min-height: 50%;
+    margin: 2rem;
+    width: -webkit-fill-available;
+    border-radius: 15px;
+    box-shadow: 0 0 10px gray;
+    border: 2px solid var(--dtcolor);
+}
+
+#HistContainer{
+    width: -webkit-fill-available;
+    height: 60%;
+    max-height: 60%;
+    display: flex;
+    margin: 2rem;
+    justify-content: space-between;
+}
+
+#HistNotaContainer{
+    width: 35%;
+    overflow-y: scroll;
+    border-radius: 14px;
+    box-shadow: 0 0 10px gray;
+    border: 2px solid var(--dtcolor);
+    text-align: center;
+}
+
+#histFooter{
+    position: sticky;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#histFooter label{
+    font-family: system-ui;
+    font-weight: 400;
+    margin-left: 2rem;
+    margin-right: 0.5rem;
+}
+
+#histFooter button{
+    margin-left: 2rem;
+    padding: 0.25rem 2rem;
+    background: var(--ftcolor);
+    border: 1px solid var(--dtcolor);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#NotaPeriodo{
+    width: 59%;
+    border: 2px solid var(--dtcolor);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-shadow: 0 0 10px gray;
 }

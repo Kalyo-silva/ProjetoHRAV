@@ -54,8 +54,11 @@ function montaTabela(tabela, tableTagId, toolbar){
     let table = document.getElementById(tableTagId);
     table.innerHTML = '';
 
+    let thead = document.createElement('thead');
+    table.appendChild(thead);
+
     let tr = document.createElement('tr');
-    table.appendChild(tr);
+    thead.appendChild(tr);
     
     for(i = 0; i < Object.keys(tabela[0]).length; i++){
         let th = document.createElement('th');
@@ -70,10 +73,13 @@ function montaTabela(tabela, tableTagId, toolbar){
         tr.append(th);
     }
 
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
     for(i = 0; i < tabela.length; i++){
         let tr = document.createElement('tr');
         tr.id = tableTagId+'_'+Object.values(tabela[i])[0];
-        table.appendChild(tr);
+        tbody.appendChild(tr);
 
         for(j = 0; j < Object.values(tabela[i]).length; j++){
 
